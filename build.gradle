@@ -28,5 +28,6 @@ repositories {
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter')
+	compile('ch.qos.logback:logback-classic:1.1.7')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
