@@ -33,6 +33,7 @@ dependencies {
 	compile('org.springframework.data:spring-data-mongodb:1.9.4.RELEASE')
 	compile('com.github.fakemongo:fongo:2.0.7')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('com.google.guava:guava:19.0')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
