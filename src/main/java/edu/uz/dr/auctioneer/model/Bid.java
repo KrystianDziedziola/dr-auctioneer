@@ -4,11 +4,21 @@ import java.time.LocalDateTime;
 
 public class Bid {
 
-    private int amount;
-    private User user;
-    private LocalDateTime dateTime;
+    private final Money money;
+    private final User user;
+    private final LocalDateTime dateTime;
 
-    public int getAmount() {
-        return amount;
+    Bid(final Money money, final User user) {
+        this.money = money;
+        this.user = user;
+        this.dateTime = LocalDateTime.now();
+    }
+
+    Money getMoney() {
+        return money;
+    }
+
+    public double getAmount() {
+        return getMoney().getAmount();
     }
 }

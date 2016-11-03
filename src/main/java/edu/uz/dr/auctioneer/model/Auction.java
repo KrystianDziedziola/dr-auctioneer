@@ -1,26 +1,25 @@
 package edu.uz.dr.auctioneer.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Auction {
 
     private final String name;
     private final String description;
     private final String mainPicturePath;
-    private final List<Bid> bids;
+    private final Bids bids;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final OwnerInfo ownerInfo;
     private boolean isFinished;
 
-    private Auction(final String name, final String description, final String mainPicturePath,
+    //TODO: ma być private
+    public Auction(final String name, final String description, final String mainPicturePath,
                     final LocalDateTime endDate, final OwnerInfo ownerInfo) {
         this.name = name;
         this.description = description;
         this.mainPicturePath = mainPicturePath;
-        this.bids = new ArrayList<>();
+        this.bids = new Bids();
         this.startDate = LocalDateTime.now();
         this.endDate = endDate;
         this.ownerInfo = ownerInfo;
@@ -28,9 +27,7 @@ public class Auction {
     }
 
     public void addBid(final Bid bid) {
-//          final Bid highestBid = Iterables.getLast(bids);
-//          add bid if is the highest
-        bids.add(bid);
+        bids.addBid(bid);
     }
 
     public void setFinished(final boolean isFinished) {
@@ -71,6 +68,7 @@ public class Auction {
         }
 
         public Auction build() {
+            //TODO: validacja czy są wszystkie pola
             return new Auction(name, description, mainPicturePath, endDate, ownerInfo);
         }
     }
