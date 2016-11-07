@@ -14,11 +14,11 @@ public class Bid {
         this.dateTime = LocalDateTime.now();
     }
 
-    Money getMoney() {
-        return money;
-    }
-
     public double getAmount() {
         return getMoney().getAmount();
+    }
+
+    Money getMoney() {
+        return money;
     }
 }

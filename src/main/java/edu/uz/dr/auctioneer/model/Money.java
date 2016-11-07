@@ -14,7 +14,7 @@ class Money {
 
     boolean isBiggerThan(final Money that) throws WrongCurrencyException {
         if (currency == that.getCurrency()) {
-            return amount < that.getAmount();
+            return amount > that.getAmount();
         } else {
             throw new WrongCurrencyException(currency, that.getCurrency());
         }

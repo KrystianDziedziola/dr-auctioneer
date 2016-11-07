@@ -10,19 +10,19 @@ public class Auction {
     private final Bids bids;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
-    private final OwnerInfo ownerInfo;
+    private final User user;
     private boolean isFinished;
 
     //TODO: ma być private
     public Auction(final String name, final String description, final String mainPicturePath,
-                    final LocalDateTime endDate, final OwnerInfo ownerInfo) {
+                   final LocalDateTime endDate, final User user) {
         this.name = name;
         this.description = description;
         this.mainPicturePath = mainPicturePath;
         this.bids = new Bids();
         this.startDate = LocalDateTime.now();
         this.endDate = endDate;
-        this.ownerInfo = ownerInfo;
+        this.user = user;
         this.isFinished = false;
     }
 
@@ -40,7 +40,7 @@ public class Auction {
         private String description;
         private String mainPicturePath;
         private LocalDateTime endDate;
-        private OwnerInfo ownerInfo;
+        private User user;
 
         public Builder setName(final String name) {
             this.name = name;
@@ -62,14 +62,14 @@ public class Auction {
             return this;
         }
 
-        public Builder setOwnerInfo(final OwnerInfo info) {
-            this.ownerInfo = info;
+        public Builder setOwnerInfo(final User user) {
+            this.user = user;
             return this;
         }
 
         public Auction build() {
             //TODO: validacja czy są wszystkie pola
-            return new Auction(name, description, mainPicturePath, endDate, ownerInfo);
+            return new Auction(name, description, mainPicturePath, endDate, user);
         }
     }
 }
