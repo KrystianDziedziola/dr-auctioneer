@@ -16,7 +16,7 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
 
     @Autowired
     public MongoConfiguration(final SpringApplicationProperties properties) {
-        databaseName = properties.getDatabase().getName();
+        databaseName = properties.getDatabaseName();
     }
 
     @Override
@@ -26,6 +26,6 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
 
     @Override
     public Mongo mongo() throws Exception {
-        return new MongoClient(databaseName);
+        return new MongoClient();
     }
 }

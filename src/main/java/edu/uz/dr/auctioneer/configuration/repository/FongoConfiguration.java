@@ -16,7 +16,7 @@ public class FongoConfiguration extends AbstractMongoConfiguration {
 
     @Autowired
     public FongoConfiguration(final SpringApplicationProperties properties) {
-        databaseName = properties.getDatabase().getName();
+        databaseName = properties.getDatabaseName();
     }
 
     @Override

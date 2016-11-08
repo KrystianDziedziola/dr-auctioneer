@@ -1,10 +1,11 @@
 package edu.uz.dr.auctioneer.model;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class Auction {
 
-    private final String name;
+    private final String title;
     private final String description;
     private final String mainPicturePath;
     private final Bids bids;
@@ -13,10 +14,9 @@ public class Auction {
     private final User user;
     private boolean isFinished;
 
-    //TODO: ma być private
-    public Auction(final String name, final String description, final String mainPicturePath,
-                   final LocalDateTime endDate, final User user) {
-        this.name = name;
+    Auction(final String title, final String description, final String mainPicturePath,
+            final LocalDateTime endDate, final User user) {
+        this.title = title;
         this.description = description;
         this.mainPicturePath = mainPicturePath;
         this.bids = new Bids();
@@ -36,18 +36,18 @@ public class Auction {
 
     public static class Builder {
 
-        private String name;
+        private String title;
         private String description;
         private String mainPicturePath;
         private LocalDateTime endDate;
         private User user;
 
-        public Builder setName(final String name) {
-            this.name = name;
+        public Builder setTitle(final String title) {
+            this.title = title;
             return this;
         }
 
-        public Builder setDesctiption(final String description) {
+        public Builder setDescription(final String description) {
             this.description = description;
             return this;
         }
@@ -62,14 +62,14 @@ public class Auction {
             return this;
         }
 
-        public Builder setOwnerInfo(final User user) {
+        public Builder setUser(final User user) {
             this.user = user;
             return this;
         }
 
         public Auction build() {
-            //TODO: validacja czy są wszystkie pola
-            return new Auction(name, description, mainPicturePath, endDate, user);
+//            TODO:validate parameters here
+            return new Auction(title, description, mainPicturePath, endDate, user);
         }
     }
 }

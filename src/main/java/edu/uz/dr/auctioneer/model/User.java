@@ -2,16 +2,16 @@ package edu.uz.dr.auctioneer.model;
 
 public class User {
 
-    private String login;
-    private Address address;
-    private String description;
+    private final String login;
+    private final String description;
+
+    public User(final String login, final String description) {
+        this.login = login;
+        this.description = description;
+    }
 
     public String getLogin() {
         return login;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     public String getDescription() {

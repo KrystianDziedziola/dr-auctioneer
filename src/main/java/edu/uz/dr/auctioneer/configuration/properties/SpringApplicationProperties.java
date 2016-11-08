@@ -16,4 +16,8 @@ public class SpringApplicationProperties {
     public void setDatabase(final DatabaseProperties database) {
         this.database = database;
     }
+
+    public String getDatabaseName() {
+        return database.getName();
+    }
 }
