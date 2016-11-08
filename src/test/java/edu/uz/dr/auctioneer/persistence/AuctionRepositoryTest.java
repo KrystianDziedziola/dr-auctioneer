@@ -1,6 +1,7 @@
-package edu.uz.dr.auctioneer.repository;
+package edu.uz.dr.auctioneer.persistence;
 
 import edu.uz.dr.auctioneer.model.Auction;
+import edu.uz.dr.auctioneer.model.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,17 +22,27 @@ public class AuctionRepositoryTest {
     @Autowired
     private AuctionRepository repository;
 
+    private Auction auction;
+
     @Before
-    public void before() {
+    public void Set_Up() {
         repository.deleteAll();
+
+        final User user = new User("Login", "Description");
+
+        auction = new Auction.Builder()
+                .setTitle("Auction")
+                .setDescription("Description")
+                .setUser(user)
+                .build();
     }
 
     @Test
-    public void shouldSaveAuctionToRepository() {
+    public void Should_Save_Auction_To_Repository() {
         //given
 
         //when
-        repository.save(new Auction("text"));
+        repository.save(auction);
         final List<Auction> auctions = repository.findAll();
 
         //then

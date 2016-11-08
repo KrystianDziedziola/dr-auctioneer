@@ -1,4 +1,4 @@
-package edu.uz.dr.auctioneer.repository;
+package edu.uz.dr.auctioneer.persistence;
 
 import edu.uz.dr.auctioneer.model.Auction;
 import org.springframework.data.mongodb.repository.MongoRepository;
