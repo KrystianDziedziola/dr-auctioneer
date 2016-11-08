@@ -31,7 +31,7 @@ public class AuctionRepositoryTest {
         final User user = new User("Login", "Description");
 
         auction = new Auction.Builder()
-//                .setTitle("Auction")
+                .setTitle("Auction")
                 .setDescription("Description")
                 .setUser(user)
                 .build();
