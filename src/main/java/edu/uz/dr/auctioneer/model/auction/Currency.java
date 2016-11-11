@@ -1,4 +1,4 @@
-package edu.uz.dr.auctioneer.model;
+package edu.uz.dr.auctioneer.model.auction;
 
 public enum Currency {
 

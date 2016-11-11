@@ -1,16 +1,16 @@
-package edu.uz.dr.auctioneer.model;
+package edu.uz.dr.auctioneer.model.auction;
 
 import java.time.LocalDateTime;
 
 public class Bid {
 
     private final Money money;
-    private final User user;
+    private final UserInformation userInformation;
     private final LocalDateTime dateTime;
 
-    Bid(final Money money, final User user) {
+    Bid(final Money money, final UserInformation userInformation) {
         this.money = money;
-        this.user = user;
+        this.userInformation = userInformation;
         this.dateTime = LocalDateTime.now();
     }
 

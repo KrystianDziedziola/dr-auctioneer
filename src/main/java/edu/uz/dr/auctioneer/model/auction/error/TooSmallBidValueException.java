@@ -1,6 +1,6 @@
-package edu.uz.dr.auctioneer.model.error;
+package edu.uz.dr.auctioneer.model.auction.error;
 
-import edu.uz.dr.auctioneer.model.Bid;
+import edu.uz.dr.auctioneer.model.auction.Bid;
 
 public class TooSmallBidValueException extends RuntimeException {
 

@@ -1,7 +1,7 @@
 package edu.uz.dr.auctioneer.persistence;
 
-import edu.uz.dr.auctioneer.model.Auction;
-import edu.uz.dr.auctioneer.model.User;
+import edu.uz.dr.auctioneer.model.auction.Auction;
+import edu.uz.dr.auctioneer.model.auction.UserInformation;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,12 +28,12 @@ public class AuctionRepositoryTest {
     public void Set_Up() {
         repository.deleteAll();
 
-        final User user = new User("Login", "Description");
+        final UserInformation userInformation = new UserInformation("Login", "Description");
 
         auction = new Auction.Builder()
                 .setTitle("Auction")
                 .setDescription("Description")
-                .setUser(user)
+                .setUserInformation(userInformation)
                 .build();
     }
 

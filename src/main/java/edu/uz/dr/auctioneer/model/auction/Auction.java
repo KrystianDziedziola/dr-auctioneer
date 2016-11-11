@@ -1,4 +1,4 @@
-package edu.uz.dr.auctioneer.model;
+package edu.uz.dr.auctioneer.model.auction;
 
 import java.time.LocalDateTime;
 
@@ -11,11 +11,11 @@ public class Auction {
     private final Bids bids;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
-    private final User user;
+    private final UserInformation userInformation;
     private boolean isFinished;
 
     Auction(final String title, final String description, final Money startingPrice, final String mainPicturePath,
-            final LocalDateTime endDate, final User user) {
+            final LocalDateTime endDate, final UserInformation userInformation) {
         this.title = title;
         this.description = description;
         this.startingPrice = startingPrice;
@@ -23,10 +23,10 @@ public class Auction {
         this.bids = new Bids();
         this.startDate = LocalDateTime.now();
         this.endDate = endDate;
-        this.user = user;
+        this.userInformation = userInformation;
         this.isFinished = false;
 
-        bids.addBid(new Bid(startingPrice, user));
+        bids.addBid(new Bid(startingPrice, userInformation));
     }
 
     public void addBid(final Bid bid) {
@@ -48,7 +48,7 @@ public class Auction {
         private Money startingPrice;
         private String mainPicturePath;
         private LocalDateTime endDate;
-        private User user;
+        private UserInformation userInformation;
 
         public Builder setTitle(final String title) {
             this.title = title;
@@ -75,14 +75,14 @@ public class Auction {
             return this;
         }
 
-        public Builder setUser(final User user) {
-            this.user = user;
+        public Builder setUserInformation(final UserInformation userInformation) {
+            this.userInformation = userInformation;
             return this;
         }
 
         public Auction build() {
 //            TODO:validate parameters here
-            return new Auction(title, description, startingPrice, mainPicturePath, endDate, user);
+            return new Auction(title, description, startingPrice, mainPicturePath, endDate, userInformation);
         }
     }
 }
