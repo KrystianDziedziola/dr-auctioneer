@@ -1,6 +1,5 @@
 package edu.uz.dr.auctioneer.model.auction;
 
-import edu.uz.dr.auctioneer.model.auction.*;
 import edu.uz.dr.auctioneer.model.auction.error.TooSmallBidValueException;
 import edu.uz.dr.auctioneer.model.auction.error.WrongCurrencyException;
 import org.junit.Before;

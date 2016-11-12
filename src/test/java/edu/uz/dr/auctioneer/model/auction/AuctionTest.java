@@ -1,6 +1,5 @@
 package edu.uz.dr.auctioneer.model.auction;
 
-import edu.uz.dr.auctioneer.model.auction.*;
 import org.junit.Before;
 import org.junit.Test;
 
