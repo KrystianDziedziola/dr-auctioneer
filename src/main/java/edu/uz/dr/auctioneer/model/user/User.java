@@ -2,19 +2,27 @@ package edu.uz.dr.auctioneer.model.user;
 
 public class User {
 
-    private Credentials credentials;
+    private final Credentials credentials;
     private String profilePicturePath;
     private String description;
 
-    public User(Credentials credentials) {
+    public User(final Credentials credentials) {
         this.credentials = credentials;
     }
 
-    public void setProfilePicturePath(String profilePicturePath) {
+    public String getPassword() {
+        return credentials.getPassword();
+    }
+
+    public String getLogin() {
+        return credentials.getLogin();
+    }
+
+    public void setProfilePicturePath(final String profilePicturePath) {
         this.profilePicturePath = profilePicturePath;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 }

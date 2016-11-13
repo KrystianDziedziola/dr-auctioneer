@@ -5,16 +5,11 @@ public class Credentials {
     private static final int MIN_LOGIN_LENGTH = 5;
     private static final int MIN_PASSWORD_LENGTH = 8;
 
-    private String login;
-    private String password;
+    private final String login;
+    private final String password;
 
-    public Credentials(String login, String password) {
-        if (isCredentialInvalid(login, MIN_LOGIN_LENGTH)) {
-            throw new IllegalArgumentException(createInvalidCredentialMessage("login", MIN_LOGIN_LENGTH));
-        }
-        if (isCredentialInvalid(password, MIN_PASSWORD_LENGTH)) {
-            throw new IllegalArgumentException(createInvalidCredentialMessage("password", MIN_PASSWORD_LENGTH));
-        }
+    public Credentials(final String login, final String password) {
+        verifyCredentials(login, password);
         this.login = login;
         this.password = password;
     }
@@ -27,11 +22,21 @@ public class Credentials {
         return password;
     }
 
-    private String createInvalidCredentialMessage(String credential, int minLength) {
-        return String.format("Invalid %s. It should be at least %d characters long", credential, minLength);
+    private void verifyCredentials(final String login, final String password) {
+        if (isCredentialInvalid(login, MIN_LOGIN_LENGTH)) {
+            throw new IllegalArgumentException(createInvalidCredentialMessage("login", MIN_LOGIN_LENGTH));
+        }
+
+        if (isCredentialInvalid(password, MIN_PASSWORD_LENGTH)) {
+            throw new IllegalArgumentException(createInvalidCredentialMessage("password", MIN_PASSWORD_LENGTH));
+        }
     }
 
-    private boolean isCredentialInvalid(String credential, int minLength) {
+    private boolean isCredentialInvalid(final String credential, final int minLength) {
         return credential == null || credential.isEmpty() || credential.length() < minLength;
+    }
+
+    private String createInvalidCredentialMessage(final String credential, final int minLength) {
+        return String.format("Invalid %s. It should be at least %d characters long", credential, minLength);
     }
 }
