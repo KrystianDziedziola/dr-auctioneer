@@ -1,11 +1,11 @@
-package edu.uz.dr.auctioneer.model;
+package edu.uz.dr.auctioneer.model.auction;
 
-public class User {
+public class UserInformation {
 
     private final String login;
     private final String description;
 
-    public User(final String login, final String description) {
+    public UserInformation(final String login, final String description) {
         this.login = login;
         this.description = description;
     }

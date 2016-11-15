@@ -1,7 +1,7 @@
-package edu.uz.dr.auctioneer.model;
+package edu.uz.dr.auctioneer.model.auction;
 
-import edu.uz.dr.auctioneer.model.error.TooSmallBidValueException;
-import edu.uz.dr.auctioneer.model.error.WrongCurrencyException;
+import edu.uz.dr.auctioneer.model.auction.error.TooSmallBidValueException;
+import edu.uz.dr.auctioneer.model.auction.error.WrongCurrencyException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,15 +12,15 @@ public class BidsTest {
 
     private Bids bids;
     private Bid bid;
-    private User user;
+    private UserInformation userInformation;
 
     @Before
     public void Set_Up() {
         bids = new Bids();
 
         final Money money = new Money(100, Currency.PLN);
-        user = new User("Login", "Description");
-        bid = new Bid(money, user);
+        userInformation = new UserInformation("Login", "Description");
+        bid = new Bid(money, userInformation);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class BidsTest {
         // given
         bids.addBid(bid);
 
-        final Bid higherBid = new Bid(new Money(150, Currency.PLN), user);
+        final Bid higherBid = new Bid(new Money(150, Currency.PLN), userInformation);
 
         // when
         bids.addBid(higherBid);
@@ -65,7 +65,7 @@ public class BidsTest {
         // given
         bids.addBid(bid);
 
-        final Bid usdBid = new Bid(new Money(150, Currency.USD), user);
+        final Bid usdBid = new Bid(new Money(150, Currency.USD), userInformation);
 
         // when
         final Throwable result = catchThrowable(() -> bids.addBid(usdBid));

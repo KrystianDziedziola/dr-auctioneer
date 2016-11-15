@@ -1,7 +1,7 @@
-package edu.uz.dr.auctioneer.model;
+package edu.uz.dr.auctioneer.model.auction;
 
 import com.google.common.collect.Iterables;
-import edu.uz.dr.auctioneer.model.error.TooSmallBidValueException;
+import edu.uz.dr.auctioneer.model.auction.error.TooSmallBidValueException;
 
 import java.util.ArrayList;
 import java.util.List;

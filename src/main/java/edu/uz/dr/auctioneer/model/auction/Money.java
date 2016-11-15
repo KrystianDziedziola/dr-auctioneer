@@ -1,6 +1,6 @@
-package edu.uz.dr.auctioneer.model;
+package edu.uz.dr.auctioneer.model.auction;
 
-import edu.uz.dr.auctioneer.model.error.WrongCurrencyException;
+import edu.uz.dr.auctioneer.model.auction.error.WrongCurrencyException;
 
 class Money {
 
