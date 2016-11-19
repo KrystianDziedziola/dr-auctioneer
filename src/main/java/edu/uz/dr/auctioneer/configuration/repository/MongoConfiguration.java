@@ -13,10 +13,14 @@ import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 public class MongoConfiguration extends AbstractMongoConfiguration {
 
     private final String databaseName;
+    private final String databaseHost;
+    private final int databasePort;
 
     @Autowired
     public MongoConfiguration(final SpringApplicationProperties properties) {
         databaseName = properties.getDatabaseName();
+        databaseHost = properties.getDatabaseHost();
+        databasePort = properties.getDatabasePort();
     }
 
     @Override
@@ -26,6 +30,6 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
 
     @Override
     public Mongo mongo() throws Exception {
-        return new MongoClient();
+        return new MongoClient(databaseHost, databasePort);
     }
 }
