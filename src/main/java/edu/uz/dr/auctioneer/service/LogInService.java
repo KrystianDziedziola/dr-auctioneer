@@ -4,9 +4,11 @@ import edu.uz.dr.auctioneer.model.user.User;
 import edu.uz.dr.auctioneer.model.user.error.WrongCredentialException;
 import edu.uz.dr.auctioneer.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class LogInService {
 
     private final UserRepository repository;
