@@ -20,4 +20,12 @@ public class SpringApplicationProperties {
     public String getDatabaseName() {
         return database.getName();
     }
+
+    public String getDatabaseHost() {
+        return database.getHost();
+    }
+
+    public int getDatabasePort() {
+        return database.getPort();
+    }
 }
