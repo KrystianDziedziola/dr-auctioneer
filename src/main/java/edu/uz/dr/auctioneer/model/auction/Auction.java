@@ -15,13 +15,13 @@ public class Auction {
     private boolean isFinished;
 
     Auction(final String title, final String description, final Money startingPrice, final String mainPicturePath,
-            final LocalDateTime endDate, final UserInformation userInformation) {
+            final LocalDateTime startDate, final LocalDateTime endDate, final UserInformation userInformation) {
         this.title = title;
         this.description = description;
         this.startingPrice = startingPrice;
         this.mainPicturePath = mainPicturePath;
         this.bids = new Bids();
-        this.startDate = LocalDateTime.now();
+        this.startDate = startDate;
         this.endDate = endDate;
         this.userInformation = userInformation;
         this.isFinished = false;
@@ -43,11 +43,17 @@ public class Auction {
 
     public static class Builder {
 
+        private static final String STARTING_PRICE_REQUIRED_MESSAGE = "Starting price is required";
+        private static final String TITLE_REQUIRED_MESSAGE = "Title is required";
+        private static final String WRONG_END_DATE_MESSAGE = "End date should be after current date";
+        private static final String USER_INFORMATION_REQUIRED_MESSAGE = "User information is required";
+
         private String title;
         private String description;
         private Money startingPrice;
         private String mainPicturePath;
         private LocalDateTime endDate;
+        private final LocalDateTime startDate = LocalDateTime.now();
         private UserInformation userInformation;
 
         public Builder setTitle(final String title) {
@@ -60,8 +66,8 @@ public class Auction {
             return this;
         }
 
-        public Builder setStartingPrice(final Money startingPrice) {
-            this.startingPrice = startingPrice;
+        public Builder setStartingPrice(final double amount, final Currency currency) {
+            this.startingPrice = new Money(amount, currency);
             return this;
         }
 
@@ -81,8 +87,25 @@ public class Auction {
         }
 
         public Auction build() {
-//            TODO:validate parameters here
-            return new Auction(title, description, startingPrice, mainPicturePath, endDate, userInformation);
+            validateParameters(title, startingPrice, startDate);
+
+            return new Auction(title, description, startingPrice, mainPicturePath, endDate, startDate, userInformation);
         }
+
+        private void validateParameters(final String title, final Money startingPrice, final LocalDateTime startDate) {
+            if (title == null || title.isEmpty()) {
+                throw new IllegalArgumentException(TITLE_REQUIRED_MESSAGE);
+            }
+            if (startingPrice == null) {
+                throw new IllegalArgumentException(STARTING_PRICE_REQUIRED_MESSAGE);
+            }
+            if (endDate == null || endDate.isBefore(startDate)) {
+                throw new IllegalArgumentException(WRONG_END_DATE_MESSAGE);
+            }
+            if (userInformation == null) {
+                throw new IllegalArgumentException(USER_INFORMATION_REQUIRED_MESSAGE);
+            }
+        }
+
     }
 }

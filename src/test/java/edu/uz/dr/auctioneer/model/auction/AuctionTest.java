@@ -3,6 +3,8 @@ package edu.uz.dr.auctioneer.model.auction;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 
@@ -12,12 +14,12 @@ public class AuctionTest {
 
     @Before
     public void Set_Up() {
-        final Money startingPrice = new Money(200, Currency.PLN);
         final UserInformation userInformation = new UserInformation("Login", "Description");
 
         auction = new Auction.Builder()
                 .setTitle("Auction")
-                .setStartingPrice(startingPrice)
+                .setEndDate(LocalDateTime.of(2016, 12, 1, 15, 0))
+                .setStartingPrice(200, Currency.PLN)
                 .setDescription("Description")
                 .setUserInformation(userInformation)
                 .build();
