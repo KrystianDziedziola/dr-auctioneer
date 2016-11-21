@@ -1,6 +1,7 @@
 package edu.uz.dr.auctioneer.persistence;
 
 import edu.uz.dr.auctioneer.model.auction.Auction;
+import edu.uz.dr.auctioneer.model.auction.Currency;
 import edu.uz.dr.auctioneer.model.auction.UserInformation;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -32,6 +34,8 @@ public class AuctionRepositoryTest {
 
         auction = new Auction.Builder()
                 .setTitle("Auction")
+                .setEndDate(LocalDateTime.of(2016, 12, 1, 15, 0))
+                .setStartingPrice(200, Currency.PLN)
                 .setDescription("Description")
                 .setUserInformation(userInformation)
                 .build();
