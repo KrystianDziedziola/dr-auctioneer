@@ -29,11 +29,16 @@ class Money {
         }
     }
 
-    private Currency getCurrency() {
+    Currency getCurrency() {
         return currency;
     }
 
     double getAmount() {
         return amount;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%.2f %s", amount, currency);
     }
 }

@@ -37,6 +37,22 @@ public class Auction {
         return bids.getNumberOfBids();
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public Money getStartingPrice() {
+        return startingPrice;
+    }
+
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public UserInformation getUserInformation() {
+        return userInformation;
+    }
+
     public void setFinished(final boolean isFinished) {
         this.isFinished = isFinished;
     }
@@ -106,6 +122,5 @@ public class Auction {
                 throw new IllegalArgumentException(USER_INFORMATION_REQUIRED_MESSAGE);
             }
         }
-
     }
 }
