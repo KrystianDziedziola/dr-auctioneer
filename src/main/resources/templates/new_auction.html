@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>DR Auctioneer - New auction</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Create new auction</h1>
+<form action="#" th:action="@{/add_auction}" th:object="${auction}" method="post">
+    <p>Title: <input type="text" th:field="*{title}"/></p>
+    <p>Description: <input type="text" th:field="*{description}"/></p>
+    <p>Starting price: <input type="text" th:field="*{startingPriceAmount}"/></p>
+    <p>Starting price currency: <input type="text" th:field="*{startingPriceCurrency}"/></p>
+    <p>Main picture path: <input type="text" th:field="*{mainPicturePath}"/></p>
+    <p>End date: <input type="text" th:field="*{endDate}"/></p>
+    <p>User: <input type="text" th:field="*{user}"/></p>
+    <p>User description: <input type="text" th:field="*{userDescription}"/></p>
+    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+</form>
+</body>
+</html>

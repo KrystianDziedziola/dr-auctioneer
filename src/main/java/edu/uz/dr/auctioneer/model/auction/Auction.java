@@ -104,8 +104,7 @@ public class Auction {
 
         public Auction build() {
             validateParameters(title, startingPrice, startDate);
-
-            return new Auction(title, description, startingPrice, mainPicturePath, endDate, startDate, userInformation);
+            return new Auction(title, description, startingPrice, mainPicturePath, startDate, endDate, userInformation);
         }
 
         private void validateParameters(final String title, final Money startingPrice, final LocalDateTime startDate) {

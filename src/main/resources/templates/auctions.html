@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>DR Auctioneer - Home</title>
+    <title>DR Auctioneer - Auctions</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
@@ -20,5 +20,10 @@
         <td th:text="${auction.userInformation.login}"></td>
     </tr>
 </table>
+
+<form th:action="@{/new_auction}" method="get">
+    <button type="submit">Add auction</button>
+</form>
+
 </body>
 </html>
