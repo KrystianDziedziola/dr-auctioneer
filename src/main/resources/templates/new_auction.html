@@ -7,15 +7,55 @@
 <body>
 <h1>Create new auction</h1>
 <form action="#" th:action="@{/add_auction}" th:object="${auction}" method="post">
-    <p>Title: <input type="text" th:field="*{title}"/></p>
-    <p>Description: <input type="text" th:field="*{description}"/></p>
-    <p>Starting price: <input type="text" th:field="*{startingPriceAmount}"/></p>
-    <p>Starting price currency: <input type="text" th:field="*{startingPriceCurrency}"/></p>
-    <p>Main picture path: <input type="text" th:field="*{mainPicturePath}"/></p>
-    <p>End date: <input type="text" th:field="*{endDate}"/></p>
-    <p>User: <input type="text" th:field="*{user}"/></p>
-    <p>User description: <input type="text" th:field="*{userDescription}"/></p>
-    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+    <table>
+        <tr>
+            <td>Title:</td>
+            <td><input type="text" th:field="*{title}"/></td>
+            <td th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td><input type="text" th:field="*{description}"/></td>
+        </tr>
+        <tr>
+            <td>Starting price:</td>
+            <td><input type="text" th:field="*{startingPriceAmount}"/></td>
+            <td th:if="${#fields.hasErrors('startingPriceAmount')}" th:errors="*{startingPriceAmount}"></td>
+        </tr>
+        <tr>
+            <td>Starting price currency:</td>
+            <td>
+                <select th:field="*{startingPriceCurrency}">
+                    <option th:each="state : ${T(edu.uz.dr.auctioneer.model.auction.Currency).values()}"
+                            th:value="${state}"
+                            th:text="${state}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Main picture path:</td>
+            <td><input type="text" th:field="*{mainPicturePath}"/></td>
+        </tr>
+        <tr>
+            <td>End date:</td>
+            <td><input type="text" th:field="*{endDate}" placeholder="dd-MM-yyyy hh:mm"/></td>
+            <td th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></td>
+        </tr>
+        <tr>
+            <td>User:</td>
+            <td><input type="text" th:field="*{user}"/></td>
+            <td th:if="${#fields.hasErrors('user')}" th:errors="*{user}"></td>
+        </tr>
+        <tr>
+            <td>User description:</td>
+            <td><input type="text" th:field="*{userDescription}"/></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>
