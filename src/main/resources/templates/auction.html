@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>DR Auctioneer - Auction</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1 th:text="${auction.title}"></h1>
+<h2>Bids</h2>
+<table border="1">
+    <tr>
+        <th>Price</th>
+        <th>Date</th>
+        <th>User</th>
+    </tr>
+    <tr th:each="bid : ${auction.bids.bids}">
+        <td th:text="${bid.money}"></td>
+        <td th:text="${#temporals.format(bid.dateTime, 'dd-MM-yyyy HH:mm')}"></td>
+        <td th:text="${bid.user}"></td>
+    </tr>
+</table>
+
+
+</body>
+</html>

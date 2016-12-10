@@ -10,6 +10,10 @@ class Bids {
 
     private final List<Bid> bids = new ArrayList<>();
 
+    public List<Bid> getBids() {
+        return bids;
+    }
+
     void addBid(final Bid bid) {
         if (bids.isEmpty()) {
             bids.add(bid);

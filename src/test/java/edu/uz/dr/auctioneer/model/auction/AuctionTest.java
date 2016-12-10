@@ -29,8 +29,7 @@ public class AuctionTest {
     public void Should_Add_Bid_If_Is_Higher_Than_Starting_Price() {
         // given
         final Money bidValue = new Money(250, Currency.PLN);
-        final UserInformation userInformation = new UserInformation("User1", "Description1");
-        final Bid bid = new Bid(bidValue, userInformation);
+        final Bid bid = new Bid(bidValue, "User1");
 
         // when
         auction.addBid(bid);

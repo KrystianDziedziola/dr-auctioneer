@@ -19,8 +19,7 @@ public class BidsTest {
         bids = new Bids();
 
         final Money money = new Money(100, Currency.PLN);
-        userInformation = new UserInformation("Login", "Description");
-        bid = new Bid(money, userInformation);
+        bid = new Bid(money, "user");
     }
 
     @Test
@@ -39,7 +38,7 @@ public class BidsTest {
         // given
         bids.addBid(bid);
 
-        final Bid higherBid = new Bid(new Money(150, Currency.PLN), userInformation);
+        final Bid higherBid = new Bid(new Money(150, Currency.PLN), "user1");
 
         // when
         bids.addBid(higherBid);
@@ -65,7 +64,7 @@ public class BidsTest {
         // given
         bids.addBid(bid);
 
-        final Bid usdBid = new Bid(new Money(150, Currency.USD), userInformation);
+        final Bid usdBid = new Bid(new Money(150, Currency.USD), "user1");
 
         // when
         final Throwable result = catchThrowable(() -> bids.addBid(usdBid));

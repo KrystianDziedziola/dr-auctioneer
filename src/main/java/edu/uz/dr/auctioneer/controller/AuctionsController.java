@@ -1,5 +1,6 @@
 package edu.uz.dr.auctioneer.controller;
 
+import edu.uz.dr.auctioneer.model.auction.Auction;
 import edu.uz.dr.auctioneer.model.request.AuctionRequest;
 import edu.uz.dr.auctioneer.service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -44,9 +46,15 @@ public class AuctionsController {
         if (bindingResult.hasErrors()) {
             return "new_auction";
         }
-
         auctionService.add(auctionRequest.buildAuction());
 
         return "redirect:/auctions";
+    }
+
+    @RequestMapping(value = "auction/{title}", method = RequestMethod.GET)
+    public String auction(@PathVariable final String title, final Model model) {
+        final Auction auction = auctionService.findByTitle(title);
+        model.addAttribute("auction", auction);
+        return "auction";
     }
 }

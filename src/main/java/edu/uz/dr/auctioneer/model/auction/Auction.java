@@ -28,7 +28,7 @@ public class Auction {
         this.userInformation = userInformation;
         this.isFinished = false;
 
-        bids.addBid(new Bid(startingPrice, userInformation));
+        addStartingPriceToBids();
     }
 
     public void addBid(final Bid bid) {
@@ -55,8 +55,18 @@ public class Auction {
         return userInformation;
     }
 
+    public Bids getBids() {
+        return bids;
+    }
+
     public void setFinished(final boolean isFinished) {
         this.isFinished = isFinished;
+    }
+
+    private void addStartingPriceToBids() {
+        final String startingPriceUser = String.format("%s - Starting price", userInformation.getLogin());
+        final Bid startingPriceBid = new Bid(startingPrice, startingPriceUser);
+        bids.addBid(startingPriceBid);
     }
 
     public static class Builder {
