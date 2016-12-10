@@ -1,5 +1,7 @@
 package edu.uz.dr.auctioneer.model.auction;
 
+import org.springframework.util.Assert;
+
 import java.time.LocalDateTime;
 
 public class Auction {
@@ -103,22 +105,18 @@ public class Auction {
         }
 
         public Auction build() {
-            validateParameters(title, startingPrice, startDate);
+            validateParameters();
             return new Auction(title, description, startingPrice, mainPicturePath, startDate, endDate, userInformation);
         }
 
-        private void validateParameters(final String title, final Money startingPrice, final LocalDateTime startDate) {
-            if (title == null || title.isEmpty()) {
-                throw new IllegalArgumentException(TITLE_REQUIRED_MESSAGE);
-            }
-            if (startingPrice == null) {
-                throw new IllegalArgumentException(STARTING_PRICE_REQUIRED_MESSAGE);
-            }
-            if (endDate == null || endDate.isBefore(startDate)) {
+        private void validateParameters() {
+            Assert.hasText(title, TITLE_REQUIRED_MESSAGE);
+            Assert.notNull(startingPrice, STARTING_PRICE_REQUIRED_MESSAGE);
+            Assert.notNull(endDate, WRONG_END_DATE_MESSAGE);
+            Assert.notNull(userInformation, USER_INFORMATION_REQUIRED_MESSAGE);
+
+            if (endDate.isBefore(startDate)) {
                 throw new IllegalArgumentException(WRONG_END_DATE_MESSAGE);
-            }
-            if (userInformation == null) {
-                throw new IllegalArgumentException(USER_INFORMATION_REQUIRED_MESSAGE);
             }
         }
     }
