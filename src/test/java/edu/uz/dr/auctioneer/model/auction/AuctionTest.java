@@ -18,7 +18,7 @@ public class AuctionTest {
 
         auction = new Auction.Builder()
                 .setTitle("Auction")
-                .setEndDate(LocalDateTime.of(2016, 12, 1, 15, 0))
+                .setEndDate(LocalDateTime.of(2050, 12, 1, 15, 0))
                 .setStartingPrice(200, Currency.PLN)
                 .setDescription("Description")
                 .setUserInformation(userInformation)

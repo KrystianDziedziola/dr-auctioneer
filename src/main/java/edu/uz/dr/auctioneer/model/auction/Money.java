@@ -1,6 +1,7 @@
 package edu.uz.dr.auctioneer.model.auction;
 
 import edu.uz.dr.auctioneer.model.auction.error.WrongCurrencyException;
+import org.springframework.util.Assert;
 
 class Money {
     private static final int LOWEST_AMOUNT = 0;
@@ -11,9 +12,8 @@ class Money {
     private final Currency currency;
 
     Money(final double amount, final Currency currency) {
-        if (currency == null) {
-            throw new IllegalArgumentException(CURRENCY_REQUIRED_MESSAGE);
-        }
+        Assert.notNull(currency, CURRENCY_REQUIRED_MESSAGE);
+
         if (amount < LOWEST_AMOUNT) {
             throw new IllegalArgumentException(String.format(WRONG_AMOUNT_MESSAGE, LOWEST_AMOUNT));
         }
@@ -22,18 +22,23 @@ class Money {
     }
 
     boolean isBiggerThan(final Money that) throws WrongCurrencyException {
-        if (currency == that.getCurrency()) {
-            return amount > that.getAmount();
-        } else {
+        if (currency != that.getCurrency()) {
             throw new WrongCurrencyException(currency, that.getCurrency());
         }
+
+        return amount > that.getAmount();
     }
 
-    private Currency getCurrency() {
+    Currency getCurrency() {
         return currency;
     }
 
     double getAmount() {
         return amount;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%.2f %s", amount, currency);
     }
 }
