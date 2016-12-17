@@ -65,6 +65,10 @@ public class Auction {
         return userInformation;
     }
 
+    public String getMainPicturePath() {
+        return mainPicturePath;
+    }
+
     public Bids getBids() {
         return bids;
     }

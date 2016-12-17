@@ -15,18 +15,18 @@ public class AuctionExamples {
                 .setTitle("PC Computer")
                 .setDescription("Opis")
                 .setStartingPrice(2_000, Currency.PLN)
+                .setMainPicturePath("")
                 .setUserInformation(new UserInformation("Krystian", "Taki gość"))
                 .setEndDate(LocalDateTime.of(2050, 12, 12, 11, 11, 11))
-                .setMainPicturePath("")
                 .build();
 
         final Auction secondAuction = new Auction.Builder()
                 .setTitle("Honda Car")
                 .setDescription("Opis")
                 .setStartingPrice(10_000, Currency.USD)
+                .setMainPicturePath("http://hiswheel.com/images/honda-car-2.jpg")
                 .setUserInformation(new UserInformation("Pan Murzyn", "Wielbiciel azjatek"))
                 .setEndDate(LocalDateTime.of(2040, 10, 10, 5, 5, 5))
-                .setMainPicturePath("")
                 .build();
 
         return Arrays.asList(firstAuction, secondAuction);
