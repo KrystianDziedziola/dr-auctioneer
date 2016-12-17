@@ -12,7 +12,7 @@ public class AuctionExamples {
 
     public static List<Auction> create() {
         final Auction firstAuction = new Auction.Builder()
-                .setTitle("Komputer")
+                .setTitle("PC Computer")
                 .setDescription("Opis")
                 .setStartingPrice(2_000, Currency.PLN)
                 .setUserInformation(new UserInformation("Krystian", "Taki gość"))
@@ -21,10 +21,10 @@ public class AuctionExamples {
                 .build();
 
         final Auction secondAuction = new Auction.Builder()
-                .setTitle("Samochód")
+                .setTitle("Honda Car")
                 .setDescription("Opis")
                 .setStartingPrice(10_000, Currency.USD)
-                .setUserInformation(new UserInformation("Pan Murzyn", ""))
+                .setUserInformation(new UserInformation("Pan Murzyn", "Wielbiciel azjatek"))
                 .setEndDate(LocalDateTime.of(2040, 10, 10, 5, 5, 5))
                 .setMainPicturePath("")
                 .build();

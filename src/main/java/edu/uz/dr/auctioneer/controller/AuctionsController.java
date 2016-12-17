@@ -1,7 +1,9 @@
 package edu.uz.dr.auctioneer.controller;
 
 import edu.uz.dr.auctioneer.model.auction.Auction;
+import edu.uz.dr.auctioneer.model.auction.error.TooSmallBidValueException;
 import edu.uz.dr.auctioneer.model.request.AuctionRequest;
+import edu.uz.dr.auctioneer.model.request.BidRequest;
 import edu.uz.dr.auctioneer.service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,10 +53,26 @@ public class AuctionsController {
         return "redirect:/auctions";
     }
 
-    @RequestMapping(value = "auction/{title}", method = RequestMethod.GET)
-    public String auction(@PathVariable final String title, final Model model) {
+    @RequestMapping(value = "/auction/{title}", method = RequestMethod.GET)
+    public String auction(@PathVariable final String title,
+                          final Model model) {
         final Auction auction = auctionService.findByTitle(title);
         model.addAttribute("auction", auction);
+        model.addAttribute("bidRequest", new BidRequest());
         return "auction";
+    }
+
+    @RequestMapping(value = "/auction/{title}/bid", method = RequestMethod.POST)
+    public String bid(@PathVariable final String title,
+                      @ModelAttribute("bidRequest") final BidRequest bidRequest) {
+        try {
+            final Auction auction = auctionService.findByTitle(title);
+            auction.addBid(bidRequest.getAmount(), bidRequest.getUsername());
+            auctionService.add(auction);
+        } catch (final TooSmallBidValueException e) {
+            return "redirect:/bid_error";
+        }
+
+        return String.format("redirect:/auction/%s", title);
     }
 }

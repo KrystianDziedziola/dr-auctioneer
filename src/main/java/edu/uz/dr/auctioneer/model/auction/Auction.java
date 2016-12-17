@@ -1,11 +1,13 @@
 package edu.uz.dr.auctioneer.model.auction;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 
 public class Auction {
 
+    @Id
     private final String title;
     private final String description;
     private final Money startingPrice;
@@ -22,7 +24,7 @@ public class Auction {
         this.description = description;
         this.startingPrice = startingPrice;
         this.mainPicturePath = mainPicturePath;
-        this.bids = new Bids();
+        this.bids = new Bids(startingPrice.getCurrency());
         this.startDate = startDate;
         this.endDate = endDate;
         this.userInformation = userInformation;
@@ -35,12 +37,20 @@ public class Auction {
         bids.addBid(bid);
     }
 
+    public void addBid(final double amount, final String username) {
+        bids.addBid(amount, username);
+    }
+
     public int getNumberOfBids() {
         return bids.getNumberOfBids();
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Money getStartingPrice() {

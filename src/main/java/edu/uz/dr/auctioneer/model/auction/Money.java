@@ -3,7 +3,7 @@ package edu.uz.dr.auctioneer.model.auction;
 import edu.uz.dr.auctioneer.model.auction.error.WrongCurrencyException;
 import org.springframework.util.Assert;
 
-class Money {
+public class Money {
     private static final int LOWEST_AMOUNT = 0;
     private static final String CURRENCY_REQUIRED_MESSAGE = "Currency is required";
     private static final String WRONG_AMOUNT_MESSAGE = "Amount should be more than %d";
@@ -11,7 +11,7 @@ class Money {
     private final double amount;
     private final Currency currency;
 
-    Money(final double amount, final Currency currency) {
+    public Money(final double amount, final Currency currency) {
         Assert.notNull(currency, CURRENCY_REQUIRED_MESSAGE);
 
         if (amount < LOWEST_AMOUNT) {

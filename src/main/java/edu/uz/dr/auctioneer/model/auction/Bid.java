@@ -8,7 +8,7 @@ public class Bid {
     private final String user;
     private final LocalDateTime dateTime;
 
-    Bid(final Money money, final String user) {
+    public Bid(final Money money, final String user) {
         this.money = money;
         this.user = user;
         this.dateTime = LocalDateTime.now();

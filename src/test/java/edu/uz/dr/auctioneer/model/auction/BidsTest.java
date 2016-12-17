@@ -16,7 +16,7 @@ public class BidsTest {
 
     @Before
     public void Set_Up() {
-        bids = new Bids();
+        bids = new Bids(Currency.PLN);
 
         final Money money = new Money(100, Currency.PLN);
         bid = new Bid(money, "user");

@@ -7,6 +7,16 @@
 </head>
 <body>
 <h1 th:text="${auction.title}"></h1>
+
+<h2>Photo</h2>
+<p>-------------------------------------------------</p>
+<p>|...............................................|</p>
+<p>|...............................................|</p>
+<p>|...............................................|</p>
+<p>|...............................................|</p>
+<p>|...............................................|</p>
+<p>-------------------------------------------------</p>
+
 <h2>Bids</h2>
 <table border="1">
     <tr>
@@ -16,11 +26,23 @@
     </tr>
     <tr th:each="bid : ${auction.bids.bids}">
         <td th:text="${bid.money}"></td>
-        <td th:text="${#temporals.format(bid.dateTime, 'dd-MM-yyyy HH:mm')}"></td>
+        <td th:text="${#temporals.format(bid.dateTime, 'dd-MM-yyyy HH:mm:ss')}"></td>
         <td th:text="${bid.user}"></td>
     </tr>
 </table>
 
+<form th:action="@{/auction/} + ${auction.title} + @{/bid}" th:object="${bidRequest}" method="post">
+    <input type="text" th:field="*{username}" placeholder="Username"/>
+    <input type="text" th:field="*{amount}" placeholder="Bid value"/>
+    <button type="submit">Bid</button>
+</form>
+
+<h2>Description</h2>
+<p th:text="${auction.description}"></p>
+
+<h2>Owner</h2>
+<h3 th:text="${auction.userInformation.login}"></h3>
+<p th:text="${auction.userInformation.description}"></p>
 
 </body>
 </html>
