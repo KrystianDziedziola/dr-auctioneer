@@ -18,10 +18,10 @@
     <tr>
         <th>Price</th>
         <th>Date</th>
-        <th>User</th>
+        <th>Owner</th>
     </tr>
     <tr th:each="bid : ${auction.bids.bids}">
-        <td th:text="${bid.money}"></td>
+        <td th:text="${bid.price} + ' ' + ${auction.currency}"></td>
         <td th:text="${#temporals.format(bid.dateTime, 'dd-MM-yyyy HH:mm:ss')}"></td>
         <td th:text="${bid.user}"></td>
     </tr>

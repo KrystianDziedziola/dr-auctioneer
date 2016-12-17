@@ -1,7 +1,6 @@
 package edu.uz.dr.auctioneer.model.auction;
 
 import edu.uz.dr.auctioneer.model.auction.error.TooSmallBidValueException;
-import edu.uz.dr.auctioneer.model.auction.error.WrongCurrencyException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,10 +15,8 @@ public class BidsTest {
 
     @Before
     public void Set_Up() {
-        bids = new Bids(Currency.PLN);
-
-        final Money money = new Money(100, Currency.PLN);
-        bid = new Bid(money, "user");
+        bids = new Bids();
+        bid = new Bid(100, "user");
     }
 
     @Test
@@ -38,7 +35,7 @@ public class BidsTest {
         // given
         bids.addBid(bid);
 
-        final Bid higherBid = new Bid(new Money(150, Currency.PLN), "user1");
+        final Bid higherBid = new Bid(150, "user1");
 
         // when
         bids.addBid(higherBid);
@@ -58,19 +55,4 @@ public class BidsTest {
         // then
         assertThat(result).isInstanceOf(TooSmallBidValueException.class);
     }
-
-    @Test
-    public void Should_Throw_Exception_If_Bid_Currency_Do_Not_Match() {
-        // given
-        bids.addBid(bid);
-
-        final Bid usdBid = new Bid(new Money(150, Currency.USD), "user1");
-
-        // when
-        final Throwable result = catchThrowable(() -> bids.addBid(usdBid));
-
-        // then
-        assertThat(result).isInstanceOf(WrongCurrencyException.class);
-    }
-
 }
