@@ -16,7 +16,6 @@ public class Auction {
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final UserInformation userInformation;
-    private boolean isFinished;
 
     Auction(final String title, final String description, final Money startingPrice, final String mainPicturePath,
             final LocalDateTime startDate, final LocalDateTime endDate, final UserInformation userInformation) {
@@ -28,7 +27,6 @@ public class Auction {
         this.startDate = startDate;
         this.endDate = endDate;
         this.userInformation = userInformation;
-        this.isFinished = false;
 
         addStartingPriceToBids();
     }
@@ -69,12 +67,13 @@ public class Auction {
         return mainPicturePath;
     }
 
-    public Bids getBids() {
-        return bids;
+    public Money getCurrentPrice() {
+        final Bid highestBid = bids.getHighestBid();
+        return highestBid.getMoney();
     }
 
-    public void setFinished(final boolean isFinished) {
-        this.isFinished = isFinished;
+    public Bids getBids() {
+        return bids;
     }
 
     private void addStartingPriceToBids() {

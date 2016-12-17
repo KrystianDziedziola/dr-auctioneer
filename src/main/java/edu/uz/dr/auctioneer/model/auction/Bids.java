@@ -41,6 +41,10 @@ public class Bids {
         addBid(bid);
     }
 
+    public Bid getHighestBid() {
+        return Iterables.getLast(bids);
+    }
+
     public Currency getCurrency() {
         return currency;
     }
