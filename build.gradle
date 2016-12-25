@@ -4,6 +4,7 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
+		jcenter()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -23,8 +24,8 @@ targetCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
-
 
 dependencies {
 
@@ -40,4 +41,5 @@ dependencies {
 	compile('com.google.guava:guava:19.0')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('pl.pojo:pojo-tester:0.7.1')
 }

@@ -12,9 +12,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AuctionRequest {
-
-    private static final String DATE_FORMAT = "dd-MM-yyyy HH:mm";
-
     @Size(min = 1, max = 30,
             message = "Title size has to be between 1 and 30")
     private String title;
@@ -101,13 +98,17 @@ public class AuctionRequest {
         this.userDescription = userDescription;
     }
 
+    public static String getDateFormat() {
+        return "dd-MM-yyyy HH:mm";
+    }
+
     public Auction buildAuction() {
         return new Auction.Builder()
                 .setTitle(title)
                 .setDescription(description)
                 .setStartingPrice(startingPriceAmount, Currency.valueOf(startingPriceCurrency))
                 .setMainPicturePath(mainPicturePath)
-                .setEndDate(LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern(DATE_FORMAT)))
+                .setEndDate(LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern(getDateFormat())))
                 .setUserInformation(new UserInformation(user, userDescription))
                 .build();
     }

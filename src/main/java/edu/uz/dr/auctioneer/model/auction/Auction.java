@@ -59,6 +59,26 @@ public class Auction {
         this.isFinished = isFinished;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public String getMainPicturePath() {
+        return mainPicturePath;
+    }
+
+    public Bids getBids() {
+        return bids;
+    }
+
+    public LocalDateTime getStartDate() {
+        return startDate;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
     public static class Builder {
 
         private static final String STARTING_PRICE_REQUIRED_MESSAGE = "Starting price is required";
