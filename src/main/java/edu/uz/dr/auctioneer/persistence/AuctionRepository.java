@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AuctionRepository extends MongoRepository<Auction, String> {
-
+    Auction findByTitle(String title);
 }

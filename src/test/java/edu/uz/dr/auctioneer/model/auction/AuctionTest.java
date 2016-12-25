@@ -19,7 +19,8 @@ public class AuctionTest {
         auction = new Auction.Builder()
                 .setTitle("Auction")
                 .setEndDate(LocalDateTime.of(2050, 12, 1, 15, 0))
-                .setStartingPrice(200, Currency.PLN)
+                .setStartingPrice(200)
+                .setCurrency(Currency.PLN)
                 .setDescription("Description")
                 .setUserInformation(userInformation)
                 .build();
@@ -28,14 +29,24 @@ public class AuctionTest {
     @Test
     public void Should_Add_Bid_If_Is_Higher_Than_Starting_Price() {
         // given
-        final Money bidValue = new Money(250, Currency.PLN);
-        final UserInformation userInformation = new UserInformation("User1", "Description1");
-        final Bid bid = new Bid(bidValue, userInformation);
 
         // when
-        auction.addBid(bid);
+        auction.addBid(250, "User1");
 
         //then
         assertThat(auction.getNumberOfBids()).isEqualTo(2);
+    }
+
+    @Test
+    public void Should_Get_Correct_Current_Price() {
+        // given
+        final String username = "user";
+        final double newPrice = 300;
+
+        // when
+        auction.addBid(newPrice, username);
+
+        //then
+        assertThat(auction.getCurrentPrice()).isEqualTo(300);
     }
 }

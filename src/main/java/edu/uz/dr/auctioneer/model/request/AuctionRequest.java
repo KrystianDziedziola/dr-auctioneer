@@ -24,7 +24,7 @@ public class AuctionRequest {
             message = "Starting price amount can't be less than 0")
     private double startingPriceAmount;
 
-    private String startingPriceCurrency;
+    private String currency;
 
     private String mainPicturePath;
 
@@ -61,12 +61,12 @@ public class AuctionRequest {
         this.startingPriceAmount = startingPriceAmount;
     }
 
-    public String getStartingPriceCurrency() {
-        return startingPriceCurrency;
+    public String getCurrency() {
+        return currency;
     }
 
-    public void setStartingPriceCurrency(final String startingPriceCurrency) {
-        this.startingPriceCurrency = startingPriceCurrency;
+    public void setCurrency(final String currency) {
+        this.currency = currency;
     }
 
     public String getMainPicturePath() {
@@ -105,7 +105,8 @@ public class AuctionRequest {
         return new Auction.Builder()
                 .setTitle(title)
                 .setDescription(description)
-                .setStartingPrice(startingPriceAmount, Currency.valueOf(startingPriceCurrency))
+                .setStartingPrice(startingPriceAmount)
+                .setCurrency(Currency.valueOf(currency))
                 .setMainPicturePath(mainPicturePath)
                 .setEndDate(LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern(DATE_FORMAT)))
                 .setUserInformation(new UserInformation(user, userDescription))

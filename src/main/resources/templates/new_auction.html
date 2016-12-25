@@ -25,7 +25,7 @@
         <tr>
             <td>Starting price currency:</td>
             <td>
-                <select th:field="*{startingPriceCurrency}">
+                <select th:field="*{currency}">
                     <option th:each="state : ${T(edu.uz.dr.auctioneer.model.auction.Currency).values()}"
                             th:value="${state}"
                             th:text="${state}">

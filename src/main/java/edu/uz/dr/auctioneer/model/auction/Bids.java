@@ -6,24 +6,32 @@ import edu.uz.dr.auctioneer.model.auction.error.TooSmallBidValueException;
 import java.util.ArrayList;
 import java.util.List;
 
-class Bids {
+public class Bids {
 
     private final List<Bid> bids = new ArrayList<>();
+
+    public List<Bid> getBids() {
+        return bids;
+    }
 
     void addBid(final Bid bid) {
         if (bids.isEmpty()) {
             bids.add(bid);
         } else {
             final Bid highestBid = Iterables.getLast(bids);
-            final Money highestBidMoney = highestBid.getMoney();
-            final Money bidMoney = bid.getMoney();
+            final double highestBidPrice = highestBid.getPrice();
+            final double bidPrice = bid.getPrice();
 
-            if (bidMoney.isBiggerThan(highestBidMoney)) {
+            if (bidPrice > highestBidPrice) {
                 bids.add(bid);
             } else {
                 throw new TooSmallBidValueException(bid, highestBid);
             }
         }
+    }
+
+    public Bid getHighestBid() {
+        return Iterables.getLast(bids);
     }
 
     int getNumberOfBids() {
