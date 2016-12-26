@@ -43,7 +43,7 @@ dependencies {
 }
 
 //JACOCO
-jacocoTestReport {
+jacocoTestReport{
 	group = "Reporting"
 	reports {
 		xml.enabled true
@@ -51,3 +51,6 @@ jacocoTestReport {
 		html.destination "${buildDir}/reports/coverage"
 	}
 }
+
+build.finalizedBy(jacocoTestReport)
+
