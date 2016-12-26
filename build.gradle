@@ -13,6 +13,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
+apply plugin: 'jacoco'
 
 jar {
 	baseName = 'dr-auctioneer'
@@ -24,7 +25,6 @@ targetCompatibility = 1.8
 repositories {
 	mavenCentral()
 }
-
 
 dependencies {
 
@@ -40,4 +40,14 @@ dependencies {
 	compile('com.google.guava:guava:19.0')
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+//JACOCO
+jacocoTestReport {
+	group = "Reporting"
+	reports {
+		xml.enabled true
+		csv.enabled false
+		html.destination "${buildDir}/reports/coverage"
+	}
 }

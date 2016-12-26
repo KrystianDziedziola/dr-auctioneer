@@ -70,7 +70,7 @@ public class AuctionsController {
             auction.addBid(bidRequest.getAmount(), bidRequest.getUsername());
             auctionService.add(auction);
         } catch (final TooSmallBidValueException e) {
-            return "redirect:/bid_error";
+            return "bid_error";
         }
 
         return String.format("redirect:/auction/%s", title);
