@@ -3,7 +3,7 @@ package edu.uz.dr.auctioneer.model.request;
 public class BidRequest {
 
     private String username;
-    private double amount;
+    private Double amount;
 
     public BidRequest() {
     }
@@ -16,11 +16,11 @@ public class BidRequest {
         this.username = username;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(final double amount) {
+    public void setAmount(final Double amount) {
         this.amount = amount;
     }
 }
