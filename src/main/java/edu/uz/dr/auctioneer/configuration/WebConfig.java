@@ -13,5 +13,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
+        if (!registry.hasMappingForPattern("/static/**")) {
+            registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        }
     }
 }
