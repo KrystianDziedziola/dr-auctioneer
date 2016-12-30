@@ -15,8 +15,7 @@ public class AuctionRequestTest {
         // when
 
         // then
-        assertPojoMethodsFor(classUnderTest).testing(Method.GETTER, Method.SETTER)
-                                            .testing(Method.CONSTRUCTOR)
+        assertPojoMethodsFor(classUnderTest).testing(Method.CONSTRUCTOR)
                                             .areWellImplemented();
     }
 
