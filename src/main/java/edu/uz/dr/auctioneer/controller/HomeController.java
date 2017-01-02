@@ -11,13 +11,8 @@ public class HomeController {
         return "redirect:/auctions";
     }
 
-    @RequestMapping("/registration")
-    public String registration() {
-        return "registration";
-    }
-
     @RequestMapping("/home")
     public String homepage() {
-        return "index";
+        return "homepage";
     }
 }
