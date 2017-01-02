@@ -1,44 +1,123 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <title>DR Auctioneer - Auction</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet" media="screen"/>
 </head>
 <body>
-<h1 th:text="${auction.title}"></h1>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a class="navbar-brand" href="/">
+                        <span class="glyphicon glyphicon-home" aria-hidden="false" href="/"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-<h2>Photo</h2>
-<img th:src="${auction.mainPicturePath}"
-     width="300"
-     alt="No image available"/>
+<br/>
+<br/>
+<br/>
 
-<h2>Bids</h2>
-<table border="1">
-    <tr>
-        <th>Price</th>
-        <th>Date</th>
-        <th>Owner</th>
-    </tr>
-    <tr th:each="bid : ${auction.bids.bids}">
-        <td th:text="${bid.price} + ' ' + ${auction.currency}"></td>
-        <td th:text="${#temporals.format(bid.dateTime, 'dd-MM-yyyy HH:mm:ss')}"></td>
-        <td th:text="${bid.user}"></td>
-    </tr>
-</table>
+<!-- Page Content -->
+<div class="container">
 
-<form th:action="@{/auction/} + ${auction.title} + @{/bid}" th:object="${bidRequest}" method="post">
-    <input type="text" th:field="*{username}" placeholder="Username"/>
-    <input type="text" th:field="*{amount}" placeholder="Bid value"/>
-    <button type="submit">Bid</button>
-</form>
+    <div class="row">
+        <div class="center-block">
 
-<h2>Description</h2>
-<p th:text="${auction.description}"></p>
+            <div class="thumbnail">
+                <img th:src="${auction.mainPicturePath}"
+                     width="450"
+                     alt="No image available"/>
+                <div class="caption-full">
+                    <h2 th:text="'Current price: ' + ${auction.currentPrice} + ' ' + ${auction.currency}"></h2>
 
-<h2>Owner</h2>
-<h3 th:text="${auction.userInformation.login}"></h3>
-<p th:text="${auction.userInformation.description}"></p>
+                    <div id="exTab2" class="container">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#description" data-toggle="tab">Description</a>
+                            </li>
+                            <li>
+                                <a href="#user-info" data-toggle="tab">Owner information</a>
+                            </li>
+                        </ul>
 
+                        <div class="tab-content ">
+                            <div class="tab-pane active" id="description">
+                                <h2 th:text="${auction.title}"></h2>
+                                <p th:text=" ${auction.description}"></p>
+                            </div>
+                            <div class="tab-pane" id="user-info">
+                                <h3 th:text="${auction.userInformation.login}"></h3>
+                                <p th:text="${auction.userInformation.description}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="well">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Price</th>
+                        <th>User</th>
+                        <th>Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="bid : ${auction.bids.bids}">
+                        <td><p th:text="${bid.price} + ' ' + ${auction.currency}"></p></td>
+                        <td><p th:text="${bid.user}"></p></td>
+                        <td><p th:text="${#temporals.format(bid.dateTime, 'dd-MM-yyyy HH:mm:ss')}"></p></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <hr/>
+
+                <form th:action="@{/auction/} + ${auction.title} + @{/bid}" th:object="${bidRequest}" method="post">
+                    <input type="text" th:field="*{username}" placeholder="Username"/>
+                    <input type="text" th:field="*{amount}" placeholder="Bid value"/>
+                    <button class="btn btn-success" type="submit">Bid</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <hr/>
+    <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <p>Copyright &copy; 2016. All rights reserved</p>
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
 </html>
