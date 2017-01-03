@@ -16,7 +16,7 @@ public class AuctionExamples {
                 .setDescription("Opis")
                 .setStartingPrice(2_000)
                 .setCurrency(Currency.PLN)
-                .setMainPicturePath("")
+                .setMainPicturePath("http://pngimg.com/upload/computer_pc_PNG7719.png")
                 .setUserInformation(new UserInformation("Krystian", "Taki gość"))
                 .setEndDate(LocalDateTime.of(2050, 12, 12, 11, 11, 11))
                 .build();
