@@ -6,12 +6,6 @@
     overflow: hidden !important;
     -webkit-overflow-scrolling: touch;
 }
-body, html{
-    height: 100%;
-    background: url(http://images.clipartpanda.com/blue-clouds-background-blue-cloud-background-blue2-19029417-1920-9861.jpg) no-repeat;
-    font-family: 'Oxygen', sans-serif;
-    background-size: auto;
-}
 
 .main{
     margin:50px 15px;
