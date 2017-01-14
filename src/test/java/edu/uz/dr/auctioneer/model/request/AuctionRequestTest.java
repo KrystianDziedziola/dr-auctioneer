@@ -3,6 +3,7 @@ package edu.uz.dr.auctioneer.model.request;
 import org.junit.Test;
 import pl.pojo.tester.api.assertion.Method;
 
+import static pl.pojo.tester.api.FieldPredicate.exclude;
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
 public class AuctionRequestTest {
@@ -15,7 +16,8 @@ public class AuctionRequestTest {
         // when
 
         // then
-        assertPojoMethodsFor(classUnderTest).testing(Method.CONSTRUCTOR)
+        assertPojoMethodsFor(classUnderTest, exclude("DATE_FORMAT")).testing(Method.CONSTRUCTOR)
+                                            .testing(Method.GETTER,Method.SETTER)
                                             .areWellImplemented();
     }
 
