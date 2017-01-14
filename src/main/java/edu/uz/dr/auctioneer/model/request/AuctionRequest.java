@@ -99,7 +99,7 @@ public class AuctionRequest {
     public void setUserDescription(final String userDescription) {
         this.userDescription = userDescription;
     }
-    
+
     public Auction buildAuction() {
         return new Auction.Builder()
                 .setTitle(title)
