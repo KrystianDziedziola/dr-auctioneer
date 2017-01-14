@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class AuctionRequest {
-
     private static final String DATE_FORMAT = "dd-MM-yyyy HH:mm";
 
     @Size(min = 1, max = 30,
