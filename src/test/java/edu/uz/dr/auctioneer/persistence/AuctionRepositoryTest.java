@@ -35,7 +35,8 @@ public class AuctionRepositoryTest {
         auction = new Auction.Builder()
                 .setTitle("Auction")
                 .setEndDate(LocalDateTime.of(2050, 12, 1, 15, 0))
-                .setStartingPrice(200, Currency.PLN)
+                .setStartingPrice(200)
+                .setCurrency(Currency.PLN)
                 .setDescription("Description")
                 .setUserInformation(userInformation)
                 .build();

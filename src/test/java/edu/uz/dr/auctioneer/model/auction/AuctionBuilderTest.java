@@ -14,7 +14,7 @@ public class AuctionBuilderTest {
     private final String title = "title";
     private final String description = "description";
     private final double startingPriceAmount = 200;
-    private final Currency startingPriceCurrency = Currency.PLN;
+    private final Currency currency = Currency.PLN;
     private final String mainPicturePath = "/picture.png";
     private final LocalDateTime endDate = LocalDateTime.of(2050, 12, 30, 15, 30);
     private final UserInformation userInformation = new UserInformation("login", "description");
@@ -27,7 +27,8 @@ public class AuctionBuilderTest {
         final Auction auction = builder
                 .setTitle(title)
                 .setDescription(description)
-                .setStartingPrice(startingPriceAmount, startingPriceCurrency)
+                .setStartingPrice(startingPriceAmount)
+                .setCurrency(currency)
                 .setMainPicturePath(mainPicturePath)
                 .setEndDate(endDate)
                 .setUserInformation(userInformation)
@@ -46,7 +47,8 @@ public class AuctionBuilderTest {
         final Throwable result = catchThrowable(() -> builder
                 .setTitle(title)
                 .setDescription(description)
-                .setStartingPrice(startingPriceAmount, startingPriceCurrency)
+                .setStartingPrice(startingPriceAmount)
+                .setCurrency(currency)
                 .setMainPicturePath(mainPicturePath)
                 .setEndDate(endDate)
                 .setUserInformation(userInformation)
@@ -63,7 +65,8 @@ public class AuctionBuilderTest {
         // when
         final Throwable result = catchThrowable(() -> builder
                 .setDescription(description)
-                .setStartingPrice(startingPriceAmount, startingPriceCurrency)
+                .setStartingPrice(startingPriceAmount)
+                .setCurrency(currency)
                 .setMainPicturePath(mainPicturePath)
                 .setEndDate(endDate)
                 .setUserInformation(userInformation)
@@ -82,7 +85,8 @@ public class AuctionBuilderTest {
         final Throwable result = catchThrowable(() -> builder
                 .setTitle(title)
                 .setDescription(description)
-                .setStartingPrice(startingPriceAmount, startingPriceCurrency)
+                .setStartingPrice(startingPriceAmount)
+                .setCurrency(currency)
                 .setMainPicturePath(mainPicturePath)
                 .setEndDate(endDate)
                 .setUserInformation(userInformation)
@@ -117,7 +121,8 @@ public class AuctionBuilderTest {
         final Throwable result = catchThrowable(() -> builder
                 .setTitle(title)
                 .setDescription(description)
-                .setStartingPrice(startingPriceAmount, startingPriceCurrency)
+                .setStartingPrice(startingPriceAmount)
+                .setCurrency(currency)
                 .setMainPicturePath(mainPicturePath)
                 .setUserInformation(userInformation)
                 .build());
@@ -135,7 +140,8 @@ public class AuctionBuilderTest {
         final Throwable result = catchThrowable(() -> builder
                 .setTitle(title)
                 .setDescription(description)
-                .setStartingPrice(startingPriceAmount, startingPriceCurrency)
+                .setStartingPrice(startingPriceAmount)
+                .setCurrency(currency)
                 .setMainPicturePath(mainPicturePath)
                 .setEndDate(endDateBeforeNow)
                 .setUserInformation(userInformation)
@@ -153,7 +159,8 @@ public class AuctionBuilderTest {
         final Throwable result = catchThrowable(() -> builder
                 .setTitle(title)
                 .setDescription(description)
-                .setStartingPrice(startingPriceAmount, startingPriceCurrency)
+                .setStartingPrice(startingPriceAmount)
+                .setCurrency(currency)
                 .setMainPicturePath(mainPicturePath)
                 .setEndDate(endDate)
                 .build());

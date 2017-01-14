@@ -1,37 +1,41 @@
 package edu.uz.dr.auctioneer.model.auction;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
 
 public class Auction {
 
+    @Id
     private final String title;
     private final String description;
-    private final Money startingPrice;
+    private final double startingPrice;
+    private final Currency currency;
     private final String mainPicturePath;
     private final Bids bids;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final UserInformation userInformation;
-    private boolean isFinished;
 
-    Auction(final String title, final String description, final Money startingPrice, final String mainPicturePath,
-            final LocalDateTime startDate, final LocalDateTime endDate, final UserInformation userInformation) {
+    Auction(final String title, final String description, final double startingPrice, final Currency currency,
+            final String mainPicturePath, final LocalDateTime startDate, final LocalDateTime endDate,
+            final UserInformation userInformation) {
         this.title = title;
         this.description = description;
         this.startingPrice = startingPrice;
+        this.currency = currency;
         this.mainPicturePath = mainPicturePath;
         this.bids = new Bids();
         this.startDate = startDate;
         this.endDate = endDate;
         this.userInformation = userInformation;
-        this.isFinished = false;
 
-        bids.addBid(new Bid(startingPrice, userInformation));
+        addStartingPriceToBids();
     }
 
-    public void addBid(final Bid bid) {
+    public void addBid(final double amount, final String username) {
+        final Bid bid = new Bid(amount, username);
         bids.addBid(bid);
     }
 
@@ -43,8 +47,16 @@ public class Auction {
         return title;
     }
 
-    public Money getStartingPrice() {
+    public String getDescription() {
+        return description;
+    }
+
+    public double getStartingPrice() {
         return startingPrice;
+    }
+
+    public Currency getCurrency() {
+        return currency;
     }
 
     public LocalDateTime getEndDate() {
@@ -55,20 +67,37 @@ public class Auction {
         return userInformation;
     }
 
-    public void setFinished(final boolean isFinished) {
-        this.isFinished = isFinished;
+    public String getMainPicturePath() {
+        return mainPicturePath;
+    }
+
+    public double getCurrentPrice() {
+        final Bid highestBid = bids.getHighestBid();
+        return highestBid.getPrice();
+    }
+
+    public Bids getBids() {
+        return bids;
+    }
+
+    private void addStartingPriceToBids() {
+        final String startingPriceUser = String.format("%s - Starting price", userInformation.getLogin());
+        final Bid startingPriceBid = new Bid(startingPrice, startingPriceUser);
+        bids.addBid(startingPriceBid);
     }
 
     public static class Builder {
 
-        private static final String STARTING_PRICE_REQUIRED_MESSAGE = "Starting price is required";
+        private static final String CURRENCY_REQUIRED_MESSAGE = "Currency is required";
         private static final String TITLE_REQUIRED_MESSAGE = "Title is required";
         private static final String WRONG_END_DATE_MESSAGE = "End date should be after current date";
         private static final String USER_INFORMATION_REQUIRED_MESSAGE = "User information is required";
+        private static final String WRONG_STARTING_PRICE_MESSAGE = "Starting price shouldn't be less than 0";
 
         private String title;
         private String description;
-        private Money startingPrice;
+        private double startingPrice;
+        private Currency currency;
         private String mainPicturePath;
         private LocalDateTime endDate;
         private final LocalDateTime startDate = LocalDateTime.now();
@@ -84,8 +113,13 @@ public class Auction {
             return this;
         }
 
-        public Builder setStartingPrice(final double amount, final Currency currency) {
-            this.startingPrice = new Money(amount, currency);
+        public Builder setStartingPrice(final double startingPrice) {
+            this.startingPrice = startingPrice;
+            return this;
+        }
+
+        public Builder setCurrency(final Currency currency) {
+            this.currency = currency;
             return this;
         }
 
@@ -106,14 +140,18 @@ public class Auction {
 
         public Auction build() {
             validateParameters();
-            return new Auction(title, description, startingPrice, mainPicturePath, startDate, endDate, userInformation);
+            return new Auction(title, description, startingPrice, currency, mainPicturePath, startDate, endDate, userInformation);
         }
 
         private void validateParameters() {
             Assert.hasText(title, TITLE_REQUIRED_MESSAGE);
-            Assert.notNull(startingPrice, STARTING_PRICE_REQUIRED_MESSAGE);
+            Assert.notNull(currency, CURRENCY_REQUIRED_MESSAGE);
             Assert.notNull(endDate, WRONG_END_DATE_MESSAGE);
             Assert.notNull(userInformation, USER_INFORMATION_REQUIRED_MESSAGE);
+
+            if (startingPrice < 0) {
+                throw new IllegalArgumentException(WRONG_STARTING_PRICE_MESSAGE);
+            }
 
             if (endDate.isBefore(startDate)) {
                 throw new IllegalArgumentException(WRONG_END_DATE_MESSAGE);

@@ -10,4 +10,9 @@ public class HomeController {
     public String home() {
         return "redirect:/auctions";
     }
+
+    @RequestMapping("/home")
+    public String homepage() {
+        return "homepage";
+    }
 }
