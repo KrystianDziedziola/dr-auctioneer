@@ -99,11 +99,7 @@ public class AuctionRequest {
     public void setUserDescription(final String userDescription) {
         this.userDescription = userDescription;
     }
-
-    public static String getDateFormat() {
-        return DATE_FORMAT;
-    }
-
+    
     public Auction buildAuction() {
         return new Auction.Builder()
                 .setTitle(title)
