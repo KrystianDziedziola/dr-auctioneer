@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class AuctionRequest {
+public class AddAuctionRequest {
 
     private static final String DATE_FORMAT = "dd-MM-yyyy HH:mm";
 
@@ -36,6 +36,8 @@ public class AuctionRequest {
             message = "User name size has to be between 1 and 20")
     private String user;
     private String userDescription;
+
+    private String password;
 
     public String getTitle() {
         return title;
@@ -101,6 +103,14 @@ public class AuctionRequest {
         this.userDescription = userDescription;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(final String password) {
+        this.password = password;
+    }
+
     public Auction buildAuction() {
         return new Auction.Builder()
                 .setTitle(title)
@@ -110,6 +120,7 @@ public class AuctionRequest {
                 .setMainPicturePath(mainPicturePath)
                 .setEndDate(LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern(DATE_FORMAT)))
                 .setUserInformation(new UserInformation(user, userDescription))
+                .setPassword(password)
                 .build();
     }
 }

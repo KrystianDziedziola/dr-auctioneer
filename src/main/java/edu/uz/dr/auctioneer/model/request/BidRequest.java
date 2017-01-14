@@ -5,9 +5,6 @@ public class BidRequest {
     private String username;
     private Double amount;
 
-    public BidRequest() {
-    }
-
     public String getUsername() {
         return username;
     }

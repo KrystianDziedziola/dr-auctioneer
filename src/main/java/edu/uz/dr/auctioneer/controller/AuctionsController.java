@@ -2,9 +2,11 @@ package edu.uz.dr.auctioneer.controller;
 
 import edu.uz.dr.auctioneer.model.auction.Auction;
 import edu.uz.dr.auctioneer.model.auction.error.TooSmallBidValueException;
-import edu.uz.dr.auctioneer.model.request.AuctionRequest;
+import edu.uz.dr.auctioneer.model.request.AddAuctionRequest;
 import edu.uz.dr.auctioneer.model.request.BidRequest;
+import edu.uz.dr.auctioneer.model.request.DeleteAuctionRequest;
 import edu.uz.dr.auctioneer.service.AuctionService;
+import edu.uz.dr.auctioneer.service.error.WrongPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,17 +40,17 @@ public class AuctionsController {
 
     @RequestMapping(value = "/new_auction", method = RequestMethod.GET)
     public String newAuction(final Model model) {
-        model.addAttribute("auction", new AuctionRequest());
+        model.addAttribute("auction", new AddAuctionRequest());
         return "new_auction";
     }
 
     @RequestMapping(value = "/add_auction", method = RequestMethod.POST)
-    public String addAuction(@Valid @ModelAttribute("auction") final AuctionRequest auctionRequest,
+    public String addAuction(@Valid @ModelAttribute("auction") final AddAuctionRequest addAuctionRequest,
                              final BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "new_auction";
         }
-        auctionService.add(auctionRequest.buildAuction());
+        auctionService.add(addAuctionRequest.buildAuction());
 
         return "redirect:/auctions";
     }
@@ -60,6 +62,13 @@ public class AuctionsController {
         model.addAttribute("auction", auction);
         model.addAttribute("bidRequest", new BidRequest());
         return "auction";
+    }
+
+    @RequestMapping(value = "/delete_auction", method = RequestMethod.GET)
+    public String auctionToDelete(final Model model) {
+        model.addAttribute("request", new DeleteAuctionRequest());
+        model.addAttribute("auctions", auctionService.getAll());
+        return "delete_auction";
     }
 
     @RequestMapping(value = "/auction/{title}/bid", method = RequestMethod.POST)
@@ -74,5 +83,18 @@ public class AuctionsController {
         }
 
         return String.format("redirect:/auction/%s", title);
+    }
+
+    @RequestMapping(value = "/auction/delete", method = RequestMethod.GET)
+    public String deleteAuction(@ModelAttribute("request") final DeleteAuctionRequest request) {
+        final String title = request.getTitle();
+        final String password = request.getPassword();
+
+        try {
+            auctionService.deleteByTitle(title, password);
+        } catch (final WrongPasswordException e) {
+            return "wrong_password";
+        }
+        return "redirect:/";
     }
 }
