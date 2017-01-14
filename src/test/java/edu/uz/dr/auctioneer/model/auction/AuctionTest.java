@@ -2,10 +2,13 @@ package edu.uz.dr.auctioneer.model.auction;
 
 import org.junit.Before;
 import org.junit.Test;
+import pl.pojo.tester.api.assertion.Method;
 
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static pl.pojo.tester.api.FieldPredicate.exclude;
+import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
 public class AuctionTest {
 
@@ -23,6 +26,19 @@ public class AuctionTest {
                 .setDescription("Description")
                 .setUserInformation(userInformation)
                 .build();
+    }
+
+    @Test
+    public void Should_Pass_All_Pojo_Tests() {
+        // given
+        final Class<?> classUnderTest = Auction.class;
+
+        // when
+
+        // then
+        assertPojoMethodsFor(classUnderTest, exclude("startDate"))
+                .testing(Method.CONSTRUCTOR, Method.GETTER)
+                .areWellImplemented();
     }
 
     @Test

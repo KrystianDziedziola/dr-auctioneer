@@ -5,6 +5,7 @@ import edu.uz.dr.auctioneer.model.auction.Currency;
 import edu.uz.dr.auctioneer.model.auction.UserInformation;
 import edu.uz.dr.auctioneer.persistence.AuctionRepository;
 import edu.uz.dr.auctioneer.service.error.AuctionNotFoundException;
+import edu.uz.dr.auctioneer.service.error.WrongPasswordException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +26,8 @@ public class AuctionServiceTest {
 
     @Mock
     private AuctionRepository repository;
+    @Mock
+    private Auction auctionMock;
 
     private Auction auction;
 
@@ -76,6 +79,55 @@ public class AuctionServiceTest {
         // then
         assertThat(result).isInstanceOf(AuctionNotFoundException.class);
 
+    }
+
+    @Test
+    public void Should_Delete_Auction_If_Auction_Is_Not_Protected_With_Password() throws WrongPasswordException {
+        // given
+        when(auctionMock.getPassword()).thenReturn(null);
+        when(repository.findByTitle("Auction")).thenReturn(auctionMock);
+
+        // when
+        service.deleteByTitle("Auction", null);
+
+        // then
+        verify(repository, times(1)).deleteByTitle("Auction");
+    }
+
+    @Test
+    public void Should_Delete_Auction_If_Password_Matches() throws WrongPasswordException {
+        when(auctionMock.getPassword()).thenReturn("password");
+        when(repository.findByTitle("Auction")).thenReturn(auctionMock);
+
+        // when
+        service.deleteByTitle("Auction", "password");
+
+        // then
+        verify(repository, times(1)).deleteByTitle("Auction");
+    }
+
+    @Test
+    public void Should_Throw_Exception_When_Deleting_Auction_With_Wrong_Password() throws WrongPasswordException {
+        when(auctionMock.getPassword()).thenReturn("password");
+        when(repository.findByTitle("Auction")).thenReturn(auctionMock);
+
+        // when
+        final Throwable result = catchThrowable(() -> service.deleteByTitle("Auction", "wrong_password"));
+
+        // then
+        assertThat(result).isInstanceOf(WrongPasswordException.class);
+    }
+
+    @Test
+    public void Should_Throw_Exception_When_Deleting_Unprotected_Auction_With_Some_Password() throws WrongPasswordException {
+        when(auctionMock.getPassword()).thenReturn(null);
+        when(repository.findByTitle("Auction")).thenReturn(auctionMock);
+
+        // when
+        final Throwable result = catchThrowable(() -> service.deleteByTitle("Auction", "password"));
+
+        // then
+        assertThat(result).isInstanceOf(WrongPasswordException.class);
     }
 
 }

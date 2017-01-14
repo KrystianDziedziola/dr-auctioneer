@@ -17,10 +17,11 @@ public class Auction {
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final UserInformation userInformation;
+    private final String password;
 
     Auction(final String title, final String description, final double startingPrice, final Currency currency,
             final String mainPicturePath, final LocalDateTime startDate, final LocalDateTime endDate,
-            final UserInformation userInformation) {
+            final UserInformation userInformation, final String password) {
         this.title = title;
         this.description = description;
         this.startingPrice = startingPrice;
@@ -30,6 +31,7 @@ public class Auction {
         this.startDate = startDate;
         this.endDate = endDate;
         this.userInformation = userInformation;
+        this.password = password;
 
         addStartingPriceToBids();
     }
@@ -80,6 +82,10 @@ public class Auction {
         return bids;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     private void addStartingPriceToBids() {
         final String startingPriceUser = String.format("%s - Starting price", userInformation.getLogin());
         final Bid startingPriceBid = new Bid(startingPrice, startingPriceUser);
@@ -102,6 +108,7 @@ public class Auction {
         private LocalDateTime endDate;
         private final LocalDateTime startDate = LocalDateTime.now();
         private UserInformation userInformation;
+        private String password;
 
         public Builder setTitle(final String title) {
             this.title = title;
@@ -138,9 +145,15 @@ public class Auction {
             return this;
         }
 
+        public Builder setPassword(final String password) {
+            this.password = password;
+            return this;
+        }
+
         public Auction build() {
             validateParameters();
-            return new Auction(title, description, startingPrice, currency, mainPicturePath, startDate, endDate, userInformation);
+            return new Auction(title, description, startingPrice, currency, mainPicturePath,
+                    startDate, endDate, userInformation, password);
         }
 
         private void validateParameters() {

@@ -3,9 +3,11 @@ package edu.uz.dr.auctioneer.model.auction;
 import edu.uz.dr.auctioneer.model.auction.error.TooSmallBidValueException;
 import org.junit.Before;
 import org.junit.Test;
+import pl.pojo.tester.api.assertion.Method;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.assertj.core.api.ThrowableAssert.catchThrowable;
+import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
 public class BidsTest {
 
@@ -17,6 +19,19 @@ public class BidsTest {
     public void Set_Up() {
         bids = new Bids();
         bid = new Bid(100, "user");
+    }
+
+    @Test
+    public void Should_Pass_All_Pojo_Tests() {
+        // given
+        final Class<?> classUnderTest = Bids.class;
+
+        // when
+
+        // then
+        assertPojoMethodsFor(classUnderTest)
+                .testing(Method.CONSTRUCTOR, Method.GETTER)
+                .areWellImplemented();
     }
 
     @Test

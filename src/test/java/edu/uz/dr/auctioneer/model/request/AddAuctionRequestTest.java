@@ -6,12 +6,12 @@ import pl.pojo.tester.api.assertion.Method;
 import static pl.pojo.tester.api.FieldPredicate.exclude;
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
-public class AuctionRequestTest {
+public class AddAuctionRequestTest {
 
     @Test
     public void Should_Pass_All_Pojo_Tests() {
         // given
-        final Class<?> classUnderTest = AuctionRequest.class;
+        final Class<?> classUnderTest = AddAuctionRequest.class;
 
         // when
 
