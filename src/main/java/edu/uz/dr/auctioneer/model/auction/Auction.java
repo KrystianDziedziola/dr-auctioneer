@@ -1,5 +1,6 @@
 package edu.uz.dr.auctioneer.model.auction;
 
+import edu.uz.dr.auctioneer.model.auction.error.AuctionFinishedException;
 import org.springframework.data.annotation.Id;
 import org.springframework.util.Assert;
 
@@ -36,13 +37,12 @@ public class Auction {
         addStartingPriceToBids();
     }
 
-    public void addBid(final double amount, final String username) {
+    public void addBid(final double amount, final String username) throws AuctionFinishedException {
+        if (getFinished()) {
+            throw new AuctionFinishedException(title, endDate);
+        }
         final Bid bid = new Bid(amount, username);
         bids.addBid(bid);
-    }
-
-    public int getNumberOfBids() {
-        return bids.getNumberOfBids();
     }
 
     public String getTitle() {
@@ -84,6 +84,15 @@ public class Auction {
 
     public String getPassword() {
         return password;
+    }
+
+    public boolean getFinished() {
+        final LocalDateTime now = LocalDateTime.now();
+        return now.isAfter(endDate);
+    }
+
+    int getNumberOfBids() {
+        return bids.getNumberOfBids();
     }
 
     private void addStartingPriceToBids() {

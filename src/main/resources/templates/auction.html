@@ -41,8 +41,10 @@
 
     <div class="row">
         <div class="center-block">
-
             <div class="thumbnail">
+                <div class="alert alert-warning" th:if="${auction.finished} == true">
+                    <h1 class="text-center">AUCTION ALREADY <strong>FINISHED</strong></h1>
+                </div>
                 <img th:src="${auction.mainPicturePath}"
                      width="450"
                      alt="No image available"/>
