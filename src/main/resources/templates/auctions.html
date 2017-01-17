@@ -63,10 +63,16 @@
             <div class="row">
                 <div th:each="auction : ${auctions}" class="col-sm-4 col-lg-4 col-md-4">
                     <div class="thumbnail">
+                        <div class="alert alert-warning" th:if="${auction.finished} == true" style="height: 50px;">
+                            <h4 class="text-center"><strong>FINISHED</strong></h4>
+                        </div>
                         <img th:src="${auction.mainPicturePath}" alt="No image available"/>
                         <div class="caption">
                             <h2 th:text="${auction.title}"></h2>
-                            <h3 th:text="'Current price: ' + ${auction.currentPrice} + ' ' + ${auction.currency}"></h3>
+                            <h3 th:text="'Current price: ' + ${auction.currentPrice} + ' ' + ${auction.currency}"
+                                th:if="${auction.finished} == false"></h3>
+                            <h3 th:text="'Final price: ' + ${auction.currentPrice} + ' ' + ${auction.currency}"
+                                th:if="${auction.finished} == true"></h3>
                         </div>
                         <div class="item_window">
                             <!--<h4 th:text="'End date: ' + ${#temporals.format(auction.endDate, 'dd-MM-yyyy HH:mm')}"></h4>-->

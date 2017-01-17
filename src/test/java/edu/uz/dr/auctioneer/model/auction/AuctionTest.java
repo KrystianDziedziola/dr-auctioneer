@@ -1,5 +1,6 @@
 package edu.uz.dr.auctioneer.model.auction;
 
+import edu.uz.dr.auctioneer.model.auction.error.AuctionFinishedException;
 import org.junit.Before;
 import org.junit.Test;
 import pl.pojo.tester.api.assertion.Method;
@@ -7,6 +8,8 @@ import pl.pojo.tester.api.assertion.Method;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.internal.util.reflection.Whitebox.setInternalState;
 import static pl.pojo.tester.api.FieldPredicate.exclude;
 import static pl.pojo.tester.api.assertion.Assertions.assertPojoMethodsFor;
 
@@ -42,7 +45,7 @@ public class AuctionTest {
     }
 
     @Test
-    public void Should_Add_Bid_If_Is_Higher_Than_Starting_Price() {
+    public void Should_Add_Bid_If_Is_Higher_Than_Starting_Price() throws AuctionFinishedException {
         // given
 
         // when
@@ -53,7 +56,7 @@ public class AuctionTest {
     }
 
     @Test
-    public void Should_Get_Correct_Current_Price() {
+    public void Should_Get_Correct_Current_Price() throws AuctionFinishedException {
         // given
         final String username = "user";
         final double newPrice = 300;
@@ -63,5 +66,17 @@ public class AuctionTest {
 
         //then
         assertThat(auction.getCurrentPrice()).isEqualTo(300);
+    }
+
+    @Test
+    public void Should_Throw_Exception_When_Bid_After_End_Of_Auction() {
+        // given
+        setInternalState(auction, "endDate", LocalDateTime.of(2010, 12, 12, 12, 12));
+
+        // when
+        final Throwable result = catchThrowable(() -> auction.addBid(2.0, "user"));
+
+        // then
+        assertThat(result).isInstanceOf(AuctionFinishedException.class);
     }
 }

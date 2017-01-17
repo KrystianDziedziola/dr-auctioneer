@@ -1,6 +1,7 @@
 package edu.uz.dr.auctioneer.controller;
 
 import edu.uz.dr.auctioneer.model.auction.Auction;
+import edu.uz.dr.auctioneer.model.auction.error.AuctionFinishedException;
 import edu.uz.dr.auctioneer.model.auction.error.TooSmallBidValueException;
 import edu.uz.dr.auctioneer.model.request.AddAuctionRequest;
 import edu.uz.dr.auctioneer.model.request.BidRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.time.format.DateTimeParseException;
 
 @Controller
 public class AuctionsController {
@@ -50,7 +52,12 @@ public class AuctionsController {
         if (bindingResult.hasErrors()) {
             return "new_auction";
         }
-        auctionService.add(addAuctionRequest.buildAuction());
+
+        try {
+            auctionService.add(addAuctionRequest.buildAuction());
+        } catch (final IllegalArgumentException | DateTimeParseException e) {
+            return "wrong_date";
+        }
 
         return "redirect:/auctions";
     }
@@ -80,6 +87,8 @@ public class AuctionsController {
             auctionService.add(auction);
         } catch (final TooSmallBidValueException e) {
             return "bid_error";
+        } catch (final AuctionFinishedException e) {
+            return "auction_end";
         }
 
         return String.format("redirect:/auction/%s", title);
