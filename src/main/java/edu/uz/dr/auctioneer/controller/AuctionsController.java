@@ -5,6 +5,7 @@ import edu.uz.dr.auctioneer.model.auction.error.TooSmallBidValueException;
 import edu.uz.dr.auctioneer.model.request.AddAuctionRequest;
 import edu.uz.dr.auctioneer.model.request.BidRequest;
 import edu.uz.dr.auctioneer.model.request.DeleteAuctionRequest;
+import edu.uz.dr.auctioneer.model.request.EditAuctionRequest;
 import edu.uz.dr.auctioneer.service.AuctionService;
 import edu.uz.dr.auctioneer.service.error.WrongPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +95,25 @@ public class AuctionsController {
             auctionService.deleteByTitle(title, password);
         } catch (final WrongPasswordException e) {
             return "wrong_password";
+        }
+        return "redirect:/";
+    }
+
+    @RequestMapping(value = "/edit_auction/{title}", method = RequestMethod.GET)
+    public String editAuction(final Model model) {
+        model.addAttribute("auction", new EditAuctionRequest());
+        return "redirect:/edit_auction";
+    }
+
+    @RequestMapping(value = "/edit_auction/{title}/edit", method = RequestMethod.POST)
+    public String editAuction(@PathVariable final String title,
+            @ModelAttribute("request") final EditAuctionRequest request) {
+        try {
+            final Auction auction = new EditAuctionRequest().buildAuction();
+            auctionService.deleteByTitle(title, request.getPassword());
+            auctionService.add(auction);
+        } catch (WrongPasswordException e) {
+            e.printStackTrace();
         }
         return "redirect:/";
     }

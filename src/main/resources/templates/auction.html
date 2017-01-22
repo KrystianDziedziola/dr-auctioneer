@@ -26,6 +26,10 @@
                         <span class="glyphicon glyphicon-home" aria-hidden="false" href="/"></span>
                         Home
                     </a>
+                    <a class="navbar-brand" th:href="@{/edit_auction/} + ${auction.title}">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="false" th:href="@{/edit_auction/} + ${auction.title}"></span>
+                        Edit auction
+                    </a>
                 </li>
             </ul>
         </div>

@@ -29,6 +29,7 @@ public class AuctionExamples {
                 .setMainPicturePath("http://hiswheel.com/images/honda-car-2.jpg")
                 .setUserInformation(new UserInformation("Pan Murzyn", "Wielbiciel azjatek"))
                 .setEndDate(LocalDateTime.of(2040, 10, 10, 5, 5, 5))
+                .setPassword("murzyn")
                 .build();
 
         return Arrays.asList(firstAuction, secondAuction);
